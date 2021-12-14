@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        <h1>Hello</h1>
+    </p>
+    <script src="chart.js/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+
+
+
+
+    <canvas id="myChart"></canvas>
+    <script>
+        let xlabels = [];
+        let ylabels = [];
+        let y2labels=[];
+
+        chartit();
+        async function chartit() {
+            await  request();
+            const ctx = document.getElementById('myChart').getContext('2d');
+            ctx.canvas.width = 500;
+            ctx.canvas.height = 500;
+
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: xlabels,
+                    datasets: [{
+                        label: 'temperature chart',
+                        data: ylabels,
+                        borderWidth: 1
+
+                    }]
+                },
+                options: {
+                    layout: {
+                        padding: {
+                            left: 50
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                        
+
+                    },
+
+                    responsive: true,
+                    maintainAspectRatio: true
+
+
+                }
+            });
+        }
+
+
+async function request()
+{
+    console.log("ello");
+    
+    var gsagmean=[];
+    var gistmean=[];
+    var cols=[]
+const response= await fetch('data.csv')
+// console.log(response)
+const data = await response.text()
+console.log(data)
+const table =data.split("\n").slice(1)
+console.log(table.length)
+// console.log(data)
+for (let index = table.length-1; index>=0; index--)
+ {
+    const element = table[index];
+    // console.log(table[index]);
+     cols=element.split(',')
+    // console.log(cols)
+     gsagmean=cols[2];
+     ylabels.push(parseFloat (gsagmean)+0.5);
+    // console.log(gsagmean+"this is gsag"+cols[1])
+    
+    
+    const year=cols[1];
+    xlabels.push(year);
+ 
+    // console.log(year,gsagmean)
+}
+}
+// console.log(table[1])
+</script>
+
+</body>
+</html>
