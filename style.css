@@ -1,0 +1,11 @@
+*{
+    margin: none;
+
+}
+#myChart{
+ display: flex;
+ justify-content: center;
+ max-height: 500px;
+ max-width: 1000px;
+ background-color:rgb(255, 255, 255);
+}
